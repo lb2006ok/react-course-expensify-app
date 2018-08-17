@@ -1,27 +1,47 @@
 const path = require('path');
-module.exports = {
-    entry: "./src/app.js",
-    output: {
-        path: path.join(__dirname, 'public'),
-        filename: "bundle.js"
-    },
-    module:{
-        rules: [{
-            loader: 'babel-loader',
-            test: /\.js$/,
-            exclude: /node_module/
-        },{
-            use: [
-                'style-loader',
-                'css-loader',
-                'sass-loader'
-            ],
-            test: /\.s?css$/
-        }]
-    },
-    devServer: {
-        contentBase: path.join(__dirname, 'public'),
-        historyApiFallback: true
-    },
-    devtool: "cheap-module-eval-source-map"
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+module.exports = (env) => {
+    const isProduction = env === 'production';
+    const CSSExtract = new ExtractTextPlugin('styles.css');
+    return {
+        entry: "./src/app.js",
+        output: {
+            path: path.join(__dirname, 'public'),
+            filename: "bundle.js"
+        },
+        module:{
+            rules: [{
+                loader: 'babel-loader',
+                test: /\.js$/,
+                exclude: /node_module/
+            },{
+                use: CSSExtract.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options:{
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                }),
+                test: /\.s?css$/
+            }]
+        },
+        plugins: [
+            CSSExtract
+        ],
+        devServer: {
+            contentBase: path.join(__dirname, 'public'),
+            historyApiFallback: true
+        },
+        devtool: isProduction ? 'source-map' : "inline-source-map"
+    }
 }

@@ -14,7 +14,7 @@ export class AddExpensePage extends React.Component{
             <div>
                 This is from my addExpense component
                 <ExpenseForm
-                    onSubmit={this.onSubmit()}
+                    onSubmit={this.onSubmit}
                 />
             </div>
         )
@@ -26,7 +26,7 @@ export class AddExpensePage extends React.Component{
 //         This is from my addExpense component
 //         <ExpenseForm
 //             onSubmit={(expense) => {
-//                 // props.dispatch(addExpense(expense));
+//                 //props.dispatch(addExpense(expense));
 //                 props.onSubmit(expense);
 //                 props.history.push('/');
 //             }}
