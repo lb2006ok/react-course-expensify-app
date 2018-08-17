@@ -2,4 +2,7 @@ node_modules/
 .idea/
 yarn-error.log
 package-lock.json
-
+public/bundle.js
+public/bundle.js.map
+public/styles.css
+public/styles.css.map
