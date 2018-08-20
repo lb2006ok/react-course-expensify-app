@@ -3,6 +3,8 @@
 exports[`should render addExpensePage corrently 1`] = `
 <div>
   This is from my addExpense component
-  <ExpenseForm />
+  <ExpenseForm
+    onSubmit={[Function]}
+  />
 </div>
 `;
